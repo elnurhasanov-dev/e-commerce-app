@@ -24,7 +24,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: availableQuantity
+                  name: available_quantity
                   type: double
                   constraints:
                     nullable: false
@@ -34,7 +34,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: price
-                  type: decimal
+                  name: category_id
+                  type: bigint
                   constraints:
                     nullable: false
+                    references: category(id)
+                    foreignKeyName: fk_product_to_category
+
+            remarks: Table to store information about product

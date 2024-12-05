@@ -14,7 +14,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class CreateCustomerDto {
+public class CustomerRequest {
 
     String id;
 

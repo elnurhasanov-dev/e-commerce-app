@@ -1,6 +1,5 @@
-package com.example.product.dto.request;
+package com.example.product.dto.response;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +13,9 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class ProductPurchaseRequest {
+public class ProductPurchaseResponse {
 
-    Integer productId;
+    Long productId;
     String name;
     String description;
     BigDecimal price;
