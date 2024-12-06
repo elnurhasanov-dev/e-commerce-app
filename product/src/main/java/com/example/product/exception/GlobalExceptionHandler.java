@@ -19,6 +19,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler({ProductPurchaseException.class, NotFoundException.class})
     public ExceptionResponse handle(ProductPurchaseException ex, HttpServletRequest request) {
@@ -36,7 +37,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handle(MethodArgumentNotValidException ex) {
-        log.error("NotFoundException : " + ex);
+        log.error("MethodArgumentNotValidException : " + ex);
+
         Map<String, String> map = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(
                 error -> map.put(error.getField(), error.getDefaultMessage()));
