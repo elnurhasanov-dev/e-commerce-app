@@ -1,41 +1,46 @@
 package com.example.product.exception;
 
-import com.example.product.dto.response.ErrorResponse;
-import org.springframework.validation.FieldError;
+import com.example.product.dto.response.ExceptionResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
-    @ExceptionHandler(ProductPurchaseException.class)
-    public String handle(ProductPurchaseException exp) {
-        return exp.getMessage();
+    @ExceptionHandler({ProductPurchaseException.class, NotFoundException.class})
+    public ExceptionResponse handle(ProductPurchaseException ex, HttpServletRequest request) {
+        log.error("{}: {}", ex.getClass().getSimpleName(), ex.getMessage());
+
+        return ExceptionResponse.builder()
+                .statusCode(NOT_FOUND.value())
+                .message(ex.getMessage())
+                .error(NOT_FOUND.getReasonPhrase())
+                .path(request.getRequestURI())
+                .timestamp(LocalDateTime.now())
+                .build();
     }
 
-    @ResponseStatus(BAD_REQUEST)
-    @ExceptionHandler(NotFoundException.class)
-    public String handle(NotFoundException exp) {
-        return exp.getMessage();
-    }
-
-    @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException exp) {
-        var errors = new HashMap<String, String>();
-        exp.getBindingResult().getAllErrors()
-                .forEach(error -> {
-                    var fieldName = ((FieldError) error).getField();
-                    var errorMessage = error.getDefaultMessage();
-                    errors.put(fieldName, errorMessage);
-                });
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handle(MethodArgumentNotValidException ex) {
+        log.error("NotFoundException : " + ex);
+        Map<String, String> map = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(
+                error -> map.put(error.getField(), error.getDefaultMessage()));
 
-        return new ErrorResponse(errors);
+        return map;
     }
 }
