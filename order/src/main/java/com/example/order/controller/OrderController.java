@@ -27,7 +27,7 @@ public class OrderController {
     }
 
     @GetMapping("/{order-id}")
-    public OrderResponse findById(@PathVariable("order-id") Integer orderId) {
+    public OrderResponse findById(@PathVariable("order-id") Long orderId) {
         return orderService.findById(orderId);
     }
 }

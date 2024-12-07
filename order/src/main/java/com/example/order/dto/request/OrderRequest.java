@@ -9,6 +9,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -33,6 +34,6 @@ public class OrderRequest {
     @NotBlank(message = "Customer should be present")
     String customerId;
 
-//    @NotEmpty(message = "You should at least purchase one product")
-//    List<PurchaseRequest> products;
+    @NotEmpty(message = "You should at least purchase one product")
+    List<PurchaseRequest> products;
 }

@@ -22,7 +22,7 @@ public class OrderService {
         return null;
     }
 
-    public OrderResponse findById(Integer orderId) {
+    public OrderResponse findById(Long orderId) {
         return null;
     }
 }

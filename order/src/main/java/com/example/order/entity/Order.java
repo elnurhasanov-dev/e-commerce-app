@@ -20,7 +20,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "order")
+@Table(name = "customer_order")
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 
@@ -29,14 +29,14 @@ public class Order {
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
+    String customerId;
+
     @Column(unique = true, nullable = false)
     String reference;
     BigDecimal totalAmount;
 
     @Enumerated(EnumType.STRING)
     PaymentMethod paymentMethod;
-
-    String customerId;
 
     @OneToMany(mappedBy = "order")
     List<OrderLine> orderLines;

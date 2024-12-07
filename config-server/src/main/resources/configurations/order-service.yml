@@ -1,6 +1,3 @@
-server:
-  port: 8070
-
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -10,8 +7,17 @@ spring:
   jpa:
     show_sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     change-log: classpath:db/changelog/changelog-master.yaml
+
+server:
+  port: 8070
+
+application:
+  config:
+    customer-url: http://localhost:8222/api/v1/customers
+    payment-url: http://localhost:8222/api/v1/payments
+    product-url: http://localhost:8222/api/v1/products
