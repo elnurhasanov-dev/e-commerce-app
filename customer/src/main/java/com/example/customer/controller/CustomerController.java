@@ -1,6 +1,7 @@
 package com.example.customer.controller;
 
 import com.example.customer.dto.request.CustomerRequest;
+import com.example.customer.dto.response.CustomerResponse;
 import com.example.customer.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +27,10 @@ public class CustomerController {
     @ResponseStatus(OK)
     public void updateCustomer(@RequestBody @Valid CustomerRequest request) {
         service.updateCustomer(request);
+    }
+
+    @GetMapping("/{customer-id}")
+    public CustomerResponse findById(@PathVariable("customer-id") String customerId) {
+        return service.findById(customerId);
     }
 }

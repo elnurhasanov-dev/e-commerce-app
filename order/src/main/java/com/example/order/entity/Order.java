@@ -18,6 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "customer_order")
@@ -31,9 +32,10 @@ public class Order {
 
     String customerId;
 
+    BigDecimal totalAmount;
+
     @Column(unique = true, nullable = false)
     String reference;
-    BigDecimal totalAmount;
 
     @Enumerated(EnumType.STRING)
     PaymentMethod paymentMethod;

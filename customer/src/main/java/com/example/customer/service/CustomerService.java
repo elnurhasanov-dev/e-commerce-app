@@ -23,12 +23,9 @@ public class CustomerService {
     }
 
     public void updateCustomer(CustomerRequest request) {
-        var customer = repository.findById(request.getId())
-                .orElseThrow(() -> new RuntimeException(
-                        String.format("Cannot update customer:: No customer found with the provided ID: %s", request.getId())
-                ));
+        var customer = fetchCustomerByIdIfExist(request.getId());
         mergeCustomer(customer, request);
-        this.repository.save(customer);
+        repository.save(customer);
     }
 
     private void mergeCustomer(Customer customer, CustomerRequest request) {
@@ -43,4 +40,15 @@ public class CustomerService {
         }
     }
 
+    public CustomerResponse findById(String customerId) {
+        var customer = fetchCustomerByIdIfExist(customerId);
+        return mapper.fromCustomer(customer);
+    }
+
+    private Customer fetchCustomerByIdIfExist(String customerId) {
+        return repository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException(
+                        String.format("Cannot update customer:: No customer found with the provided ID: %s", customerId)
+                ));
+    }
 }
