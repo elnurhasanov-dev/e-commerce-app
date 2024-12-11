@@ -1,0 +1,36 @@
+server:
+  port: 8040
+spring:
+  data:
+    mongodb:
+      username: mongo
+      password: admin
+      host: localhost
+      port: 27017
+      database: notification
+      authentication-database: admin
+  kafka:
+    consumer:
+      group-id: paymentGroup,orderGroup
+      bootstrap-servers: localhost:9092
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: '*' # development mode it's OK
+        spring.json.type.mapping: paymentConfirmation:com.example.notification.kafka.payment.PaymentConfirmation, orderConfirmation.OrderConfirmation
+  mail:
+    host: localhost
+    port: 1025
+    username: admin
+    password: admin
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
