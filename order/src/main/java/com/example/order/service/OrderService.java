@@ -1,9 +1,11 @@
 package com.example.order.service;
 
 import com.example.order.client.CustomerClient;
+import com.example.order.client.PaymentClient;
 import com.example.order.client.ProductClient;
 import com.example.order.dto.request.OrderLineRequest;
 import com.example.order.dto.request.OrderRequest;
+import com.example.order.dto.request.PaymentRequest;
 import com.example.order.dto.request.PurchaseRequest;
 import com.example.order.dto.response.OrderResponse;
 import com.example.order.exceptions.BusinessException;
@@ -25,6 +27,7 @@ public class OrderService {
     private final CustomerClient customerClient;
     private final OrderRepository orderRepository;
     private final ProductClient productClient;
+    private final PaymentClient paymentClient;
     private final OrderLineService orderLineService;
     private final OrderMapper mapper;
     private final OrderProducer orderProducer;
@@ -46,6 +49,14 @@ public class OrderService {
                     .quantity(purchaseRequest.getQuantity())
                     .build());
         }
+
+        var paymentRequest = PaymentRequest.builder()
+                .amount(request.getAmount())
+                .paymentMethod(request.getPaymentMethod())
+                .orderId(order.getId())
+                .orderReference(order.getReference())
+                .build();
+        paymentClient.requestOrderPayment(paymentRequest);
 
         orderProducer.sendOrderConfirmation(OrderConfirmation.builder()
                 .orderReference(request.getReference())
