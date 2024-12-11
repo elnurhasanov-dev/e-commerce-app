@@ -4,7 +4,6 @@ import com.example.order.dto.request.OrderLineRequest;
 import com.example.order.dto.response.OrderLineResponse;
 import com.example.order.mapper.OrderLineMapper;
 import com.example.order.repository.OrderLineRepository;
-import com.example.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
