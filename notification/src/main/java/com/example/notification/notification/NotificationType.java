@@ -2,5 +2,5 @@ package com.example.notification.notification;
 
 public enum NotificationType {
     ORDER_CONFIRMATION,
-    PAYMENT_CONFIRM
+    PAYMENT_CONFIRMATION
 }

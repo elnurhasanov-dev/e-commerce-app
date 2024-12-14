@@ -55,6 +55,7 @@ public class OrderService {
                 .paymentMethod(request.getPaymentMethod())
                 .orderId(order.getId())
                 .orderReference(order.getReference())
+                .customer(customer)
                 .build();
         paymentClient.requestOrderPayment(paymentRequest);
 
