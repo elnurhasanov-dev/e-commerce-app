@@ -3,6 +3,7 @@ package com.example.customer.service;
 import com.example.customer.dto.request.CustomerRequest;
 import com.example.customer.dto.response.CustomerResponse;
 import com.example.customer.entity.Customer;
+import com.example.customer.exception.CustomerNotFoundException;
 import com.example.customer.mapper.CustomerMapper;
 import com.example.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,8 +48,8 @@ public class CustomerService {
 
     private Customer fetchCustomerByIdIfExist(String customerId) {
         return repository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException(
-                        String.format("Cannot update customer:: No customer found with the provided ID: %s", customerId)
+                .orElseThrow(() -> new CustomerNotFoundException(
+                        String.format("No customer found with the provided ID: %s", customerId)
                 ));
     }
 }

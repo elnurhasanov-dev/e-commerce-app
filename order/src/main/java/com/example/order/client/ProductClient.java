@@ -1,5 +1,6 @@
 package com.example.order.client;
 
+import com.example.order.config.FeignConfig;
 import com.example.order.dto.request.PurchaseRequest;
 import com.example.order.dto.response.ProductPurchaseResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -10,7 +11,8 @@ import java.util.List;
 
 @FeignClient(
         name = "product-client",
-        url = "${application.config.product-url}"
+        url = "${application.config.product-url}",
+        configuration = FeignConfig.class
 )
 public interface ProductClient {
 

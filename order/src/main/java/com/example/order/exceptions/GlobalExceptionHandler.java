@@ -33,6 +33,20 @@ public class GlobalExceptionHandler {
 //                .build();
 //    }
 
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler({BusinessException.class})
+    public ExceptionResponse handle(BusinessException ex, HttpServletRequest request) {
+        log.error("{}: {}", ex.getClass().getSimpleName(), ex.getMessage());
+
+        return ExceptionResponse.builder()
+                .statusCode(NOT_FOUND.value())
+                .message(ex.getMessage())
+                .error(NOT_FOUND.getReasonPhrase())
+                .path(request.getRequestURI())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handle(MethodArgumentNotValidException ex) {
