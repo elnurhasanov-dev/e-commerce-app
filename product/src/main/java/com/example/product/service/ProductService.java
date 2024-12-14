@@ -37,7 +37,7 @@ public class ProductService {
         var storedProducts = productRepository.findAllByIdInOrderById(productIds);
 
         if (storedProducts.size() < productIds.size()) {
-            throw new ProductPurchaseException("One or more products does not exist");
+            throw new NotFoundException("One or more products does not exist");
         }
 
         var sortedRequest = request

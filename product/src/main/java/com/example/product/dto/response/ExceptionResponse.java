@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class ExceptionResponse {
 
     private Integer statusCode;
-    private String message;
     private String error;
+    private String message;
     private String path;
     private LocalDateTime timestamp;
 }

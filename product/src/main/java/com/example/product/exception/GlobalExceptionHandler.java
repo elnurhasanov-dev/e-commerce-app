@@ -21,9 +21,21 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class GlobalExceptionHandler {
 
     @ResponseStatus(BAD_REQUEST)
-    @ExceptionHandler({ProductPurchaseException.class, NotFoundException.class})
+    @ExceptionHandler(ProductPurchaseException.class)
     public ExceptionResponse handle(ProductPurchaseException ex, HttpServletRequest request) {
-        log.error("{}: {}", ex.getClass().getSimpleName(), ex.getMessage());
+
+        return ExceptionResponse.builder()
+                .statusCode(BAD_REQUEST.value())
+                .message(ex.getMessage())
+                .error(BAD_REQUEST.getReasonPhrase())
+                .path(request.getRequestURI())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
+    @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ExceptionResponse handle(NotFoundException ex, HttpServletRequest request) {
 
         return ExceptionResponse.builder()
                 .statusCode(NOT_FOUND.value())

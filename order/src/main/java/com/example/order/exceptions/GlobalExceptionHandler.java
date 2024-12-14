@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Slf4j
@@ -33,9 +32,9 @@ public class GlobalExceptionHandler {
 //                .build();
 //    }
 
-    @ResponseStatus(BAD_REQUEST)
-    @ExceptionHandler({BusinessException.class})
-    public ExceptionResponse handle(BusinessException ex, HttpServletRequest request) {
+    @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler({NotFoundException.class})
+    public ExceptionResponse handle(NotFoundException ex, HttpServletRequest request) {
         log.error("{}: {}", ex.getClass().getSimpleName(), ex.getMessage());
 
         return ExceptionResponse.builder()

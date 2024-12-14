@@ -14,7 +14,7 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 public class ExceptionResponse {
 
-    Integer status;
+    Integer statusCode;
     String error;
     String message;
     String path;

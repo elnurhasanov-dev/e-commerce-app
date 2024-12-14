@@ -8,7 +8,7 @@ import com.example.order.dto.request.OrderRequest;
 import com.example.order.dto.request.PaymentRequest;
 import com.example.order.dto.request.PurchaseRequest;
 import com.example.order.dto.response.OrderResponse;
-import com.example.order.exceptions.BusinessException;
+import com.example.order.exceptions.NotFoundException;
 import com.example.order.kafka.OrderConfirmation;
 import com.example.order.kafka.OrderProducer;
 import com.example.order.mapper.OrderMapper;
@@ -35,7 +35,7 @@ public class OrderService {
     public Long createOrder(OrderRequest request) {
 
         var customer = customerClient.findCustomerById(request.getCustomerId())
-                .orElseThrow(() -> new BusinessException("Cannot create order:: No customer exists with the provided ID"));
+                .orElseThrow(() -> new NotFoundException("Cannot create order:: No customer exists with the provided ID"));
 
         var purchasedProducts = productClient.purchaseProducts(request.getProducts());
 

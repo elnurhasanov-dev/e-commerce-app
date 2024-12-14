@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     public ExceptionResponse handle(CustomerNotFoundException ex, HttpServletRequest request) {
         log.error("NotFoundException : " + ex);
         return ExceptionResponse.builder()
-                .status(NOT_FOUND.value())
+                .statusCode(NOT_FOUND.value())
                 .error(NOT_FOUND.getReasonPhrase())
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
