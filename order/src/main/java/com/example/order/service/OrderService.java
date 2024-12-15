@@ -34,8 +34,7 @@ public class OrderService {
 
     public Long createOrder(OrderRequest request) {
 
-        var customer = customerClient.findCustomerById(request.getCustomerId())
-                .orElseThrow(() -> new NotFoundException("Cannot create order:: No customer exists with the provided ID"));
+        var customer = customerClient.findCustomerById(request.getCustomerId());
 
         var purchasedProducts = productClient.purchaseProducts(request.getProducts());
 
