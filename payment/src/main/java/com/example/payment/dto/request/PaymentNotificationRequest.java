@@ -13,8 +13,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentNotificationRequest {
+
     private String orderReference;
-    private BigDecimal amount;
+    private BigDecimal totalAmount;
     private PaymentMethod paymentMethod;
     private String customerFirstname;
     private String customerLastname;

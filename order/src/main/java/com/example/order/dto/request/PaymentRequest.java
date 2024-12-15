@@ -19,7 +19,7 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 public class PaymentRequest {
 
-    BigDecimal amount;
+    BigDecimal totalAmount;
     PaymentMethod paymentMethod;
     Long orderId;
     String orderReference;

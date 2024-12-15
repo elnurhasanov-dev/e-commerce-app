@@ -43,7 +43,6 @@ public class OrderService {
 
         for (PurchaseRequest purchaseRequest : request.getProducts()) {
             orderLineService.saveOrderLine(OrderLineRequest.builder()
-                    .id(null)
                     .orderId(order.getId())
                     .productId(purchaseRequest.getProductId())
                     .quantity(purchaseRequest.getQuantity())
@@ -51,7 +50,7 @@ public class OrderService {
         }
 
         var paymentRequest = PaymentRequest.builder()
-                .amount(request.getAmount())
+                .totalAmount(request.getTotalAmount())
                 .paymentMethod(request.getPaymentMethod())
                 .orderId(order.getId())
                 .orderReference(order.getReference())
@@ -61,7 +60,7 @@ public class OrderService {
 
         orderProducer.sendOrderConfirmation(OrderConfirmation.builder()
                 .orderReference(request.getReference())
-                .totalAmount(request.getAmount())
+                .totalAmount(request.getTotalAmount())
                 .paymentMethod(request.getPaymentMethod())
                 .customer(customer)
                 .products(purchasedProducts)

@@ -24,7 +24,7 @@ public class OrderRequest {
     String reference;
 
     @Positive(message = "Order amount should be positive")
-    BigDecimal amount;
+    BigDecimal totalAmount;
 
     @NotNull(message = "Payment method should be precised")
     PaymentMethod paymentMethod;

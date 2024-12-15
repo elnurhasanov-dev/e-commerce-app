@@ -21,7 +21,7 @@ public class PaymentService {
 
         notificationProducer.sendNotification(PaymentNotificationRequest.builder()
                 .orderReference(request.getOrderReference())
-                .amount(request.getAmount())
+                .totalAmount(request.getTotalAmount())
                 .paymentMethod(request.getPaymentMethod())
                 .customerFirstname(request.getCustomer().firstname())
                 .customerLastname(request.getCustomer().lastname())
